@@ -22,7 +22,7 @@ def pin_to_ipfs(data):
 def get_from_ipfs(cid,content_type="json"):
     assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
     #YOUR CODE HERE	
-    url = f"{endpoint}/api/v0/cat?arg=/ipfs/{cid}"
+    url = f"{endpoint}/api/v0/cat"
     response = requests.post(url, params={"arg": cid}, auth=(api_key, api_secret))
     data = response.json()
 
