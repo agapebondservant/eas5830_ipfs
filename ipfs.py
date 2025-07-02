@@ -9,14 +9,15 @@ endpoint = "https://ipfs.infura.io:5001"
 def pin_to_ipfs(data):
     assert isinstance(data,dict), f"Error pin_to_ipfs expects a dictionary"
     #YOUR CODE HERE
-    file_name=str(uuid.uuid4())
-    with open(file_name, 'w+') as f:
-        json.dump(data, f, indent=4)
-        response = requests.post(f"{endpoint}/api/v0/add", files={"file":f}, auth=(api_key, api_secret))
-        with open('output.txt', 'a+') as f2:
-            f2.write(response.text)
-    cid = response.text.split(",")[1].split(":")[1].replace('"','')
-    # cid = response.json()['Hash']\
+    response = requests.post(f"{endpoint}/api/v0/add", json=data, auth=(api_key, api_secret))
+    # file_name=str(uuid.uuid4())
+    # with open(file_name, 'w+') as f:
+    #     json.dump(data, f, indent=4)
+    #     response = requests.post(f"{endpoint}/api/v0/add", json=, auth=(api_key, api_secret))
+    #     with open('output.txt', 'a+') as f2:
+    #         f2.write(response.text)
+    # cid = response.text.split(",")[1].split(":")[1].replace('"','')
+    cid = response.json()['Hash']
     return cid
 
 def get_from_ipfs(cid,content_type="json"):
