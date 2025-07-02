@@ -1,7 +1,6 @@
 import requests
 import json
 import uuid
-import stacktrace
 
 api_key='af83c96cc0ff485bb901f9ed92726df3'
 api_secret='p0xwRkYKBQcRfhM5bQgW6/X70Y5CmcHVAn8QzjZ5jbqEO8r3/xyEjg'
