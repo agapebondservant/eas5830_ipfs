@@ -28,7 +28,9 @@ def get_from_ipfs(cid,content_type="json"):
     #     f2.write(response.text)
     # data = response.json()
     url = f"https://cloudflare-ipfs.com/ipfs/{cid}"
-    response = requests.get(url, auth=(api_key, api_secret))
+    response = requests.get(url)
+    with open(f'output{str(uuid.uuid4())}.json', 'w') as f2:
+        f2.write(response.text)
     data = response.json()
 
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
