@@ -22,13 +22,8 @@ def pin_to_ipfs(data):
 def get_from_ipfs(cid,content_type="json"):
     assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
     #YOUR CODE HERE	
-    # url = f"{endpoint}/api/v0/cat?arg=/ipfs/{cid}"
-    # response = requests.post(url, params={"arg": cid}, auth=(api_key, api_secret))
-    # with open(f'output{str(uuid.uuid4())}.json', 'w') as f2:
-    #     f2.write(response.text)
-    # data = response.json()
-    url = f"https://cloudflare-ipfs.com/ipfs/{cid}"
-    response = requests.get(url)
+    url = f"{endpoint}/api/v0/cat?arg=/ipfs/{cid}"
+    response = requests.post(url, params={"arg": cid}, auth=(api_key, api_secret))
     with open(f'output{str(uuid.uuid4())}.json', 'w') as f2:
         f2.write(response.text)
     data = response.json()
