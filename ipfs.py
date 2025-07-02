@@ -15,6 +15,8 @@ def pin_to_ipfs(data):
         response = requests.post(f"{endpoint}/api/v0/add", files={"file":f}, auth=(api_key, api_secret))
     cid = response.text.split(",")[1].split(":")[1].replace('"','')
     # cid = response.json()['Hash']
+    with open('output.json', 'w') as f2:
+        f2.write(cid)
     return cid
 
 def get_from_ipfs(cid,content_type="json"):
