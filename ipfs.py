@@ -24,8 +24,6 @@ def get_from_ipfs(cid,content_type="json"):
     #YOUR CODE HERE	
     url = f"{endpoint}/api/v0/cat?arg=/ipfs/{cid}"
     response = requests.post(url, params={"arg": cid}, auth=(api_key, api_secret))
-    with open(f'output{str(uuid.uuid4())}.json', 'w') as f2:
-        f2.write(response.text)
     data = response.json()
 
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
