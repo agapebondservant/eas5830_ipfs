@@ -9,7 +9,7 @@ def pin_to_ipfs(data):
     assert isinstance(data,dict), f"Error pin_to_ipfs expects a dictionary"
     #YOUR CODE HERE
     with open('output.json', 'w') as f:
-    json.dump(data, f, indent=4)
+        json.dump(data, f, indent=4)
         response = requests.post(endpoint + "/api/v0/add", files={"file":'output.json'}, auth=(api_key, api_secret))
         cid = response.text.split(",")[1].split(":")[1].replace('"','')
         return cid
