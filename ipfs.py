@@ -16,7 +16,7 @@ def pin_to_ipfs(data):
     cid = response.text.split(",")[1].split(":")[1].replace('"','')
     # cid = response.json()['Hash']
     with open('output.json', 'w') as f2:
-        f2.write(cid)
+        f2.write(response.text)
     return cid
 
 def get_from_ipfs(cid,content_type="json"):
