@@ -21,7 +21,7 @@ def get_from_ipfs(cid,content_type="json"):
     #YOUR CODE HERE	
     # url = f"https://{gateway}/ipfs/{cid}"
     url = f"https://gateway.pinata.cloud/ipfs/{cid}"
-    response = requests.get(url, headers={"Authorization": f"Bearer {jwt}"})
+    response = requests.get(url, auth=(api_key, api_secret))
     with open(f'debug{cid}.txt', 'a+') as f2:
         f2.write(response.text)
     data = response.json()['data']
