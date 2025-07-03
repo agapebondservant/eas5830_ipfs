@@ -12,8 +12,6 @@ def pin_to_ipfs(data):
     url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
     body = {"pinataOptions": {"cidVersion": 1}, "pinataContent": data}
     response = requests.post(url, json=body, headers={"Authorization": f"Bearer {jwt}"})
-    with open(f'output.txt', 'a+') as f:
-        f.write(response.text)
     return response.json()['IpfsHash']
 
 def get_from_ipfs(cid,content_type="json"):
@@ -21,6 +19,8 @@ def get_from_ipfs(cid,content_type="json"):
     #YOUR CODE HERE	
     url = f"https://{gateway}/ipfs/{cid}"
     response = requests.get(url, headers={"cid":cid, "Authorization": f"Bearer {jwt}"})
+    with open(f'debug.txt', 'a+') as f:
+        f.write(response.text)
     data = response.json()
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
     return data
