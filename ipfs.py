@@ -22,6 +22,6 @@ def get_from_ipfs(cid,content_type="json"):
     response = requests.get(url, headers={"Authorization": f"Bearer {jwt}"})
     data = response.json()
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
-    with open('debug.txt', 'a+') as f2:
+    with open(f'debug{cid}.txt', 'a+') as f2:
         f2.write(response.text)
     return data
