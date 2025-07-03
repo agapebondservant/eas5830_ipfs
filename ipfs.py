@@ -10,7 +10,7 @@ def pin_to_ipfs(data):
     assert isinstance(data,dict), f"Error pin_to_ipfs expects a dictionary"
     #YOUR CODE HERE
     with open('output.txt', 'w+') as f:
-        f.write(data)
+        json.dump(data, f)
         response = requests.post(f"https://uploads.pinata.cloud/v3/files", files={file:'output.txt'}, headers={"Authorization": f"Bearer {jwt}"})
         with open('debug.txt', 'a+') as f2:
             f2.write(response.text)
