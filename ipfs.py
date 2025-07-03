@@ -25,9 +25,10 @@ def pin_to_ipfs(data):
 def get_from_ipfs(cid,content_type="json"):
     assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
     #YOUR CODE HERE	
-    # url = f"https://{gateway}/ipfs/{cid}"
-    url = f"https://api.pinata.cloud/data/pinList"
-    response = requests.get(url, headers={"cid":cid, "pinata_api_key": api_key, "pinata_secret_api_key": api_secret})
+    url = f"https://{gateway}/ipfs/{cid}"
+    # url = f"https://api.pinata.cloud/data/pinList"
+    # response = requests.get(url, headers={"cid":cid, "pinata_api_key": api_key, "pinata_secret_api_key": api_secret})
+    response = requests.get(url, headers={"cid":cid, "Authorization": f"Bearer {jwt}"})
     with open(f'debug{cid}.txt', 'a+') as f2:
         f2.write(response.text)
     data = response.json()
