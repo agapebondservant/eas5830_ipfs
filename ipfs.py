@@ -1,24 +1,27 @@
 import requests
 import json
 
-api_key='af83c96cc0ff485bb901f9ed92726df3'
-api_secret='p0xwRkYKBQcRfhM5bQgW6/X70Y5CmcHVAn8QzjZ5jbqEO8r3/xyEjg'
-endpoint = "https://ipfs.infura.io:5001"
+api_key='eaec48abcae67b71e54d'
+api_secret='7f691420d756fbc887f77dfb9a25a23aaa78ae1cb2a39860fa84375fdb6b1551'
+jwt='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3ZGVkZjdmZi1mZWFiLTQzOTItYmZlMi05ODYxZjg3ZWQxMWIiLCJlbWFpbCI6Im9hd29mb2x1QHNlYXMudXBlbm4uZWR1IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiRlJBMSJ9LHsiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjEsImlkIjoiTllDMSJ9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6ImVhZWM0OGFiY2FlNjdiNzFlNTRkIiwic2NvcGVkS2V5U2VjcmV0IjoiN2Y2OTE0MjBkNzU2ZmJjODg3Zjc3ZGZiOWEyNWEyM2FhYTc4YWUxY2IyYTM5ODYwZmE4NDM3NWZkYjZiMTU1MSIsImV4cCI6MTc4MzA0NjYyOX0.Y-M-9tlsLugpcKGJZhcIwFnct0_u3IzdQDTwFTZMZg0'
+gateway = "emerald-efficient-lungfish-604.mypinata.cloud"
 
 def pin_to_ipfs(data):
     assert isinstance(data,dict), f"Error pin_to_ipfs expects a dictionary"
     #YOUR CODE HERE
-    response = requests.post(f"{endpoint}/api/v0/add", json=data, auth=(api_key, api_secret))
-    with open('output.txt', 'a+') as f2:
-        f2.write(response.text)
-    cid = response.text.split(",")[1].split(":")[1].replace('"','')
-    return cid
+    with open('output.txt', 'w+') as f:
+        f.write(data)
+        response = requests.post(f"https://uploads.pinata.cloud/v3/files", files={file:'output.txt'}, headers={"Authorization": f"Bearer {jwt}"})
+        with open('debug.txt', 'a+') as f2:
+            f2.write(response.text)
+        cid = response.json()['data']['cid']
+        return cid
 
 def get_from_ipfs(cid,content_type="json"):
     assert isinstance(cid,str), f"get_from_ipfs accepts a cid in the form of a string"
     #YOUR CODE HERE	
-    url = f"{endpoint}/api/v0/cat"
-    response = requests.post(url, params={"arg": cid}, auth=(api_key, api_secret))
+    url = f"https://${gateway}/ipfs/${cid}"
+    response = requests.get(url, params={"arg": cid}, headers={"Authorization": f"Bearer {jwt}"})
     data = response.json()
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
     return data
