@@ -18,6 +18,8 @@ def pin_to_ipfs(data):
     url = 'https://api.pinata.cloud/pinning/pinJSONToIPFS'
     body = {"pinataOptions": {"cidVersion": 1}, "pinataContent": data}
     response = requests.post(f"https://uploads.pinata.cloud/v3/files", json=body, headers={"Authorization": f"Bearer {jwt}"})
+    with open(f'output.txt', 'a+') as f:
+        f.write(response.text)
     return response.json()['IpfsHash']
 
 def get_from_ipfs(cid,content_type="json"):
