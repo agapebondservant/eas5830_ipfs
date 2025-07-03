@@ -20,7 +20,7 @@ def get_from_ipfs(cid,content_type="json"):
     #YOUR CODE HERE	
     url = f"https://{gateway}/ipfs/${cid}"
     response = requests.post(url, headers={"Authorization": f"Bearer {jwt}"})
-    data = response.json()
+    data = response.json()['data']
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
     with open(f'debug{cid}.txt', 'a+') as f2:
         f2.write(response.text)
