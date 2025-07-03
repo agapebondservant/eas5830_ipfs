@@ -11,7 +11,7 @@ def pin_to_ipfs(data):
     #YOUR CODE HERE
     with open('output.txt', 'w+') as f:
         json.dump(data, f)
-        response = requests.post(f"https://uploads.pinata.cloud/v3/files", files={file:'output.txt'}, headers={"Authorization": f"Bearer {jwt}"})
+        response = requests.post(f"https://uploads.pinata.cloud/v3/files", files={'file':'output.txt'}, headers={"Authorization": f"Bearer {jwt}"})
         with open('debug.txt', 'a+') as f2:
             f2.write(response.text)
         cid = response.json()['data']['cid']
