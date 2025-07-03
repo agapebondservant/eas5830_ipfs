@@ -12,8 +12,6 @@ def pin_to_ipfs(data):
     with open('output.txt', 'w+') as f:
         json.dump(data, f)
         response = requests.post(f"https://uploads.pinata.cloud/v3/files", files={'file':'output.txt'}, headers={"Authorization": f"Bearer {jwt}"})
-        with open('debug.txt', 'a+') as f2:
-            f2.write(response.text)
         cid = response.json()['data']['cid']
         return cid
 
@@ -24,4 +22,6 @@ def get_from_ipfs(cid,content_type="json"):
     response = requests.get(url, headers={"Authorization": f"Bearer {jwt}"})
     data = response.json()
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
+    with open('debug.txt', 'a+') as f2:
+        f2.write(response.text)
     return data
