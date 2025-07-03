@@ -24,6 +24,6 @@ def get_from_ipfs(cid,content_type="json"):
     response = requests.get(url, headers={"cid":cid, "pinata_api_key": api_key, "pinata_secret_api_key": api_secret})
     with open(f'debug{cid}.txt', 'a+') as f2:
         f2.write(response.text)
-    data = response.json()['data']
+    data = response.json()
     assert isinstance(data,dict), f"get_from_ipfs should return a dict"
-    return response.json()
+    return data
